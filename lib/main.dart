@@ -34,6 +34,8 @@ class _DarkThemeState extends State<DarkTheme> {
             children: <Widget>[
               Expanded(
                 child: FlatButton(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   onPressed: () {
                     setState(() {
                       if (flip == true) {
