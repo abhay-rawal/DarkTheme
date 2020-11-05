@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'OnOffStateEnum.dart';
 
 void main() {
   runApp(DarkTheme());
@@ -10,6 +11,7 @@ class DarkTheme extends StatefulWidget {
 }
 
 class _DarkThemeState extends State<DarkTheme> {
+  StateOnOff stateOnOff;
   List<Icon> nightAndDay = [
     Icon(
       Icons.brightness_2,
@@ -22,11 +24,11 @@ class _DarkThemeState extends State<DarkTheme> {
   ];
   ThemeData darkAndWhite;
   bool flip = true;
-  int state = 0;
+  int state = 1;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: darkAndWhite,
+      theme: stateOnOff == StateOnOff.On ? ThemeData.dark() : ThemeData.light(),
       home: SafeArea(
         child: Scaffold(
           body: Column(
@@ -38,15 +40,15 @@ class _DarkThemeState extends State<DarkTheme> {
                   highlightColor: Colors.transparent,
                   onPressed: () {
                     setState(() {
-                      if (flip == true) {
-                        flip = false;
-                        state = 0;
-                        darkAndWhite = ThemeData.light();
-                      } else {
-                        flip = true;
-                        state = 1;
-                        darkAndWhite = ThemeData.dark();
-                      }
+                      stateOnOff == StateOnOff.On
+                          ? () {
+                              stateOnOff = StateOnOff.Off;
+                              state = 0;
+                            }()
+                          : () {
+                              stateOnOff = StateOnOff.On;
+                              state = 1;
+                            }();
                     });
                   },
                   child: nightAndDay[state],

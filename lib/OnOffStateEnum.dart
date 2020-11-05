@@ -1,0 +1,1 @@
+enum StateOnOff { On, Off }
